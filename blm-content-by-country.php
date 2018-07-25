@@ -113,7 +113,7 @@ class BLM_Content_By_Country {
 		}
 
 		// Set a cookie so we don't have to do this every pageload
-		setcookie( $cookie_name, $country, 1 * DAY_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
+		$result = setcookie( $cookie_name, $country, time()+1*DAY_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
 
 		return apply_filters( 'blmcbc_get_country_of_visitor', $country, 'calculated' );
 
@@ -203,7 +203,7 @@ class BLM_Content_By_Country {
 		$response = wp_remote_get( $full_url, $args );
 
 		if ( ! is_array( $response ) || is_wp_error( $response ) ) {
-			file_put_contents( WP_CONTENT_DIR . '/debug.log', print_r( array( $response ), true ), FILE_APPEND );
+			file_put_contents( WP_CONTENT_DIR . '/debug.log', print_r( array( '$response not as expected', $response ), true ), FILE_APPEND );
 			return false;
 		}
 
